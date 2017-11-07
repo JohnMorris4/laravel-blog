@@ -6,8 +6,8 @@
 <h1>Create a post</h1>
 
 <hr>
+@include('layouts.errors')
 <form method="POST" action="/posts">
-
         {{ csrf_field() }}
   <div class="form-group">
     <label for="title">Title:</label>
@@ -20,5 +20,6 @@
  
   <button type="submit" class="btn btn-success">Submit</button>
 </form>
+
 </div>
 @endsection

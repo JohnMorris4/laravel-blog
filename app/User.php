@@ -37,7 +37,7 @@ class User extends Authenticatable
 
     {
 
-        $this->posts->save($post);
+        $this->posts()->save($post);
         
     }
 }

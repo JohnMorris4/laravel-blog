@@ -6,20 +6,39 @@ use Illuminate\Http\Request;
 
 use App\Post; //Accesses the the App path 
 
+use Carbon\Carbon;
+
 class PostsController extends Controller
 {
     public function __construct()
 
     {
 
-        $this->middleware('auth')->except(['index', 'show']);
+        $this->middleware('auth')->except(['index','show']);
 
     }
 
     public function index()
     {
-        $posts = Post::latest()->get();
-        return view('posts.index', compact('posts'));
+        $posts = Post::latest();
+
+        if($month = request('month')) {
+
+            $posts->whereMonth('created_at', Carbon::parse($month)->month);
+        }
+
+        if($year = request('year')) {
+
+            $posts->whereYear('created_at', $year);
+        }
+
+        $archives = Post::selectRaw('year(created_at) year, monthname(created_at) month, count(*) published')
+        ->groupBy('year', 'month')
+        ->orderByRaw('min(created_at)desc')
+        ->get()
+        ->toArray();
+
+        return view('posts.index', compact('posts', 'archives'));
   
     }
 
@@ -47,7 +66,9 @@ class PostsController extends Controller
 
         ]);
 
-        auth()->user()->publish(new Post(request(['title', 'body'])));
+        auth()->user()->publish(
+            new Post(request(['title', 'body']))
+            );
 
         
         return redirect('/');

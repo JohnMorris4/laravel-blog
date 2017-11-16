@@ -11,7 +11,7 @@
 <form action="/login" method="POST">
     {{ csrf_field() }}
 
-
+    @include('layouts/errors')
     <div class="form-group">
         <label for="email">Email:</label>
         <input type="email" name="email" id="email" class="form-control"> 

@@ -9,7 +9,7 @@
         {{ csrf_field() }}
         <div class="form-group">
             <label for="name">Name:</label>
-            <input class="form-control" type="text" name="name" id="name" required>
+            <input class="form-control" name="name" id="name" required>
         </div>
         <div class="form-group">
             <label for="email">Email:</label>

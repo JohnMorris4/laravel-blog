@@ -9,7 +9,10 @@
              {{ $post->title }} 
              </a> 
              </h2>
-            <p class="blog-post-meta"> Date: {{ $post->created_at->toDayDateTimeString() }} </p>
+            <p class="blog-post-meta">
+            {{ $post->user->name }} on
+            
+             Date: {{ $post->created_at->toDayDateTimeString() }} </p>
 
             <p> {{ $post->body }} </p>
           </div><!-- /.blog-post -->
